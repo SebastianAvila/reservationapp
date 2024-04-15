@@ -35,28 +35,28 @@
                             </v-col>
 
                             <v-col cols="12" md="4">
-                                <v-menu v-model="menuDate" :close-on-content-click="false" :nudge-right="40"
+                                <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
                                     transition="scale-transition" offset-y min-width="auto">
                                     <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="date" label="Fecha" prepend-icon="mdi-calendar" readonly
-                                            v-bind="attrs" v-on="on"></v-text-field>
+                                        <v-text-field v-model="Reservation.date" label="Picker without buttons"
+                                            prepend-icon="mdi-calendar" readonly v-bind="attrs"
+                                            v-on="on"></v-text-field>
                                     </template>
-                                    <v-date-picker v-model="Reservation.date" required outlined
-                                        @input="menuDate = false"></v-date-picker>
+                                    <v-date-picker v-model="Reservation.date" @input="menu2 = false"></v-date-picker>
                                 </v-menu>
                             </v-col>
-
                             <v-col cols="12" md="4">
                                 <v-text-field v-model="Reservation.pick_up" label="Pick Up" required outlined
                                     :counter="50" maxlength="50"></v-text-field>
                             </v-col>
                             <v-col cols="12" md="4">
                                 <v-text-field v-model="Reservation.destination" label="Destino" required outlined
-                                    :counter="50" maxlength="50"></v-text-field>
+                                    prepend-inner-icon="mdi-map-marker" :counter="50" maxlength="50"></v-text-field>
                             </v-col>
                             <v-col cols="12" md="4">
-                                <v-text-field v-model="Reservation.cost" label="Costo" required outlined :counter="50"
-                                    maxlength="50"></v-text-field>
+                                <v-text-field v-model="Reservation.cost" label="Costo" required outlined :counter="5"
+                                    prepend-inner-icon="mdi-currency-usd" maxlength="5"
+                                    :rules="[numero => /^[0-9]*$/.test(numero) || 'Ingrese solo números']"></v-text-field>
                             </v-col>
                         </v-row>
                         <br />
@@ -73,11 +73,13 @@
                             </v-col>
                             <v-col cols="12" md="4">
                                 <v-text-field v-model="Reservation.phone" label="Telefono del cliente" required outlined
-                                    :counter="50" maxlength="50"></v-text-field>
+                                    :rules="[numero => /^[0-9]*$/.test(numero) || 'Ingrese solo números']" :counter="10"
+                                    maxlength="10"></v-text-field>
                             </v-col>
                             <v-col cols="12" md="4">
                                 <v-text-field v-model="Reservation.passengers" label="Numero de pasajeros" required
-                                    outlined :counter="50" maxlength="50"></v-text-field>
+                                    :rules="[numero => /^[0-9]*$/.test(numero) || 'Ingrese solo números']" outlined
+                                    :counter="2" maxlength="2"></v-text-field>
                             </v-col>
                         </v-row>
                         <br />
@@ -93,7 +95,9 @@
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field v-model="Reservation.seller_charge" label="Comicion del vendedor" required
-                                    outlined :counter="50" maxlength="50"></v-text-field>
+                                    prepend-inner-icon="mdi-currency-usd" outlined :counter="5"
+                                    :rules="[numero => /^[0-9]*$/.test(numero) || 'Ingrese solo números']"
+                                    maxlength="5"></v-text-field>
                             </v-col>
                         </v-row>
                         <br />
@@ -109,11 +113,15 @@
                             </v-col>
                             <v-col cols="12" md="4">
                                 <v-text-field v-model="Reservation.driver_payment" label="Pago del conductor" required
-                                    outlined :counter="50" maxlength="50"></v-text-field>
+                                    prepend-inner-icon="mdi-currency-usd" outlined :counter="5"
+                                    :rules="[numero => /^[0-9]*$/.test(numero) || 'Ingrese solo números']"
+                                    maxlength="5"></v-text-field>
                             </v-col>
                             <v-col cols="12" md="4">
                                 <v-text-field v-model="Reservation.commission" label="Comision del conductor" required
-                                    outlined :counter="50" maxlength="50"></v-text-field>
+                                    prepend-inner-icon="mdi-currency-usd" outlined :counter="6"
+                                    :rules="[numero => /^[0-9]*$/.test(numero) || 'Ingrese solo números']"
+                                    maxlength="6"></v-text-field>
                             </v-col>
                         </v-row>
                         <br />
@@ -148,13 +156,17 @@
     </v-container>
 </template>
 
+
+
+
 <script>
 export default {
     data() {
         return {
-            date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-                .toISOString()
-                .substr(0, 10),
+
+
+            menu2: false,
+
             menu: false,
             modal: false,
             menuTime: false,
@@ -163,7 +175,7 @@ export default {
             Reservation: {
                 service: "",
                 hour: "",
-                date: "",
+                date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
                 client_name: "",
                 phone: "",
                 passengers: "",

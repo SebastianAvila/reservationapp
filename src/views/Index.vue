@@ -2,6 +2,9 @@
     <v-app id="inspire">
         <v-app-bar app color="#395384" flat>
             <v-container class="py-0 fill-height">
+
+
+
                 <!-- Sidebar para moviles ( < = 768 px de ancho)(Solo contiene el boton) -->
                 <div class="movilSidebar movilSidebarBtn">
                     <v-btn dark @click.stop="drawer = !drawer">
@@ -109,6 +112,7 @@
                     </v-sheet>
                 </v-col>
             </v-row>
+            <RegisterEmployee />
 
         </v-main>
     </v-app>
@@ -116,16 +120,19 @@
 
 <script>
 
+import RegisterEmployee from '../components/RegisterEmployee'
 import Employees from '@/components/Employees.vue';
-import Reservation from '@/components/Reservation.vue';
+import Reservation from '@/components/Reservations.vue';
 
 
 
 
 export default {
+    components: { RegisterEmployee },
     data: () => ({
         components: {
             Employees,
+            RegisterEmployee
             // Clientes,
             // Contratos,
             // Empleados,
@@ -150,8 +157,8 @@ export default {
             { title: 'Salir', icon: 'mdi-logout', click: 'logout' }
         ],
         IndependentCategories: [
-            { title: 'Inicio', component: Reservation, icon: 'mdi-home' },
-            { title: 'Calendario', component: Employees, icon: 'mdi-calendar' },
+            { title: 'Reservaciones', component: Reservation, icon: 'mdi-home' },
+            { title: 'Registrar Empleados', component: Employees, icon: 'mdi-calendar' },
         ],
     }),
 
